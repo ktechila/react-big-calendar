@@ -49140,6 +49140,13 @@
     )
   }
 
+  Header.propTypes =
+    'development' !== 'production'
+      ? {
+          label: propTypes$3.exports.node,
+        }
+      : {}
+
   var DateHeader = function DateHeader(_ref) {
     var label = _ref.label,
       drilldownView = _ref.drilldownView,
@@ -52621,17 +52628,6 @@
     return Week
   })(React.Component)
 
-  Week.propTypes =
-    'development' !== 'production'
-      ? {
-          date: propTypes$3.exports.instanceOf(Date).isRequired,
-          localizer: propTypes$3.exports.any,
-          min: propTypes$3.exports.instanceOf(Date),
-          max: propTypes$3.exports.instanceOf(Date),
-          scrollToTime: propTypes$3.exports.instanceOf(Date),
-          enableAutoScroll: propTypes$3.exports.bool,
-        }
-      : {}
   Week.defaultProps = TimeGrid.defaultProps
 
   Week.navigate = function (date, action, _ref) {
