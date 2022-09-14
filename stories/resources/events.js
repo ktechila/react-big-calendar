@@ -10,12 +10,18 @@ export default [
     style: {
       backgroundColor: 'red',
     },
+    user: {
+      name: 'Ketty',
+    },
   },
   {
     id: 1,
     title: 'Long Event',
     start: new Date(2015, 3, 7),
     end: new Date(2015, 3, 10),
+    user: {
+      name: 'Amy Bee',
+    },
   },
 
   {
@@ -54,6 +60,10 @@ export default [
     style: {
       backgroundColor: 'yellow',
       color: 'black',
+    },
+    user: {
+      name: 'Amy Bee',
+      url: 'https://www.w3schools.com/images/lamp.jpg',
     },
   },
   {

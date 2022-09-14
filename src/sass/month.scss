@@ -13,6 +13,27 @@
   }
 }
 
+.rbc-row-user-image {
+  height: 22px;
+  width: 22px;
+  border-radius: 100px;
+  border-color: black;
+  border-style: outset;
+  position: absolute;
+  margin-top: -2px;
+  margin-left: -10px;
+  z-index: 1000;
+  background: gray;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rbc-row-text {
+  padding-left: 13px
+}
+
 .rbc-selected-cell {
   background-color: $date-selection-bg-color;
 }

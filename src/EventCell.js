@@ -3,6 +3,30 @@ import React from 'react'
 import clsx from 'clsx'
 
 class EventCell extends React.Component {
+  renderUserImage(user) {
+    if (!user) return <></>
+    else if (user.url)
+      return <img className="rbc-row-user-image" src={user.url} />
+    else if (user.name) {
+      const str = user.name.split(' ')
+      if (str.length > 1) {
+        const firstChar = str[0].substring(0, 1)
+        const lastChar = str[str.length - 1].substring(0, 1)
+        return (
+          <div className="rbc-row-user-image">
+            {firstChar}
+            {lastChar}
+          </div>
+        )
+      } else {
+        const firstChar = str[0].substring(0, 1)
+        return <div className="rbc-row-user-image">{firstChar}</div>
+      }
+    } else {
+      return <></>
+    }
+  }
+
   render() {
     let {
       style,
@@ -44,6 +68,7 @@ class EventCell extends React.Component {
         style={event.style || {}}
         title={tooltip || undefined}
       >
+        {this.renderUserImage(event.user)}
         {Event ? (
           <Event
             event={event}
@@ -56,7 +81,7 @@ class EventCell extends React.Component {
             slotEnd={slotEnd}
           />
         ) : (
-          title
+          <div className={event.user ? 'rbc-row-text' : ''}>{title}</div>
         )}
       </div>
     )
