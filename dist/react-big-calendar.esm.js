@@ -488,6 +488,46 @@ var EventCell = /*#__PURE__*/ (function (_React$Component) {
 
   _createClass(EventCell, [
     {
+      key: 'renderUserImage',
+      value: function renderUserImage(user) {
+        if (!user)
+          return /*#__PURE__*/ React.createElement(React.Fragment, null)
+        else if (user.url)
+          return /*#__PURE__*/ React.createElement('img', {
+            className: 'rbc-row-user-image',
+            src: user.url,
+          })
+        else if (user.name) {
+          var str = user.name.split(' ')
+
+          if (str.length > 1) {
+            var firstChar = str[0].substring(0, 1)
+            var lastChar = str[str.length - 1].substring(0, 1)
+            return /*#__PURE__*/ React.createElement(
+              'div',
+              {
+                className: 'rbc-row-user-image',
+              },
+              firstChar,
+              lastChar
+            )
+          } else {
+            var _firstChar = str[0].substring(0, 1)
+
+            return /*#__PURE__*/ React.createElement(
+              'div',
+              {
+                className: 'rbc-row-user-image',
+              },
+              _firstChar
+            )
+          }
+        } else {
+          return /*#__PURE__*/ React.createElement(React.Fragment, null)
+        }
+      },
+    },
+    {
       key: 'render',
       value: function render() {
         var _this$props = this.props,
@@ -530,6 +570,7 @@ var EventCell = /*#__PURE__*/ (function (_React$Component) {
             style: event.style || {},
             title: tooltip || undefined,
           },
+          this.renderUserImage(event.user),
           Event
             ? /*#__PURE__*/ React.createElement(Event, {
                 event: event,
@@ -541,7 +582,13 @@ var EventCell = /*#__PURE__*/ (function (_React$Component) {
                 slotStart: slotStart,
                 slotEnd: slotEnd,
               })
-            : title
+            : /*#__PURE__*/ React.createElement(
+                'div',
+                {
+                  className: event.user ? 'rbc-row-text' : '',
+                },
+                title
+              )
         )
         return /*#__PURE__*/ React.createElement(
           EventWrapper,
@@ -1885,6 +1932,15 @@ var EventRow = /*#__PURE__*/ (function (_React$Component) {
   return EventRow
 })(React.Component)
 
+EventRow.propTypes =
+  process.env.NODE_ENV !== 'production'
+    ? _objectSpread(
+        {
+          segments: PropTypes.array,
+        },
+        EventRowMixin.propTypes
+      )
+    : {}
 EventRow.defaultProps = _objectSpread({}, EventRowMixin.defaultProps)
 
 function endOfRange(_ref) {
@@ -2516,6 +2572,13 @@ var Header = function Header(_ref) {
   )
 }
 
+Header.propTypes =
+  process.env.NODE_ENV !== 'production'
+    ? {
+        label: PropTypes.node,
+      }
+    : {}
+
 var DateHeader = function DateHeader(_ref) {
   var label = _ref.label,
     drilldownView = _ref.drilldownView,
@@ -2536,6 +2599,17 @@ var DateHeader = function DateHeader(_ref) {
     label
   )
 }
+
+DateHeader.propTypes =
+  process.env.NODE_ENV !== 'production'
+    ? {
+        label: PropTypes.node,
+        date: PropTypes.instanceOf(Date),
+        drilldownView: PropTypes.string,
+        onDrillDown: PropTypes.func,
+        isOffRange: PropTypes.bool,
+      }
+    : {}
 
 var _excluded$6 = ['date', 'className']
 
@@ -5285,17 +5359,6 @@ var Week = /*#__PURE__*/ (function (_React$Component) {
   return Week
 })(React.Component)
 
-Week.propTypes =
-  process.env.NODE_ENV !== 'production'
-    ? {
-        date: PropTypes.instanceOf(Date).isRequired,
-        localizer: PropTypes.any,
-        min: PropTypes.instanceOf(Date),
-        max: PropTypes.instanceOf(Date),
-        scrollToTime: PropTypes.instanceOf(Date),
-        enableAutoScroll: PropTypes.bool,
-      }
-    : {}
 Week.defaultProps = TimeGrid.defaultProps
 
 Week.navigate = function (date, action, _ref) {
@@ -5418,17 +5481,6 @@ var WorkWeek = /*#__PURE__*/ (function (_React$Component) {
   return WorkWeek
 })(React.Component)
 
-WorkWeek.propTypes =
-  process.env.NODE_ENV !== 'production'
-    ? {
-        date: PropTypes.instanceOf(Date).isRequired,
-        localizer: PropTypes.any,
-        min: PropTypes.instanceOf(Date),
-        max: PropTypes.instanceOf(Date),
-        scrollToTime: PropTypes.instanceOf(Date),
-        enableAutoScroll: PropTypes.bool,
-      }
-    : {}
 WorkWeek.defaultProps = TimeGrid.defaultProps
 WorkWeek.range = workWeekRange
 WorkWeek.navigate = Week.navigate

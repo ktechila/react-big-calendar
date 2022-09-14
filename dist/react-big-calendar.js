@@ -43772,6 +43772,46 @@
 
     _createClass(EventCell, [
       {
+        key: 'renderUserImage',
+        value: function renderUserImage(user) {
+          if (!user)
+            return /*#__PURE__*/ React.createElement(React.Fragment, null)
+          else if (user.url)
+            return /*#__PURE__*/ React.createElement('img', {
+              className: 'rbc-row-user-image',
+              src: user.url,
+            })
+          else if (user.name) {
+            var str = user.name.split(' ')
+
+            if (str.length > 1) {
+              var firstChar = str[0].substring(0, 1)
+              var lastChar = str[str.length - 1].substring(0, 1)
+              return /*#__PURE__*/ React.createElement(
+                'div',
+                {
+                  className: 'rbc-row-user-image',
+                },
+                firstChar,
+                lastChar
+              )
+            } else {
+              var _firstChar = str[0].substring(0, 1)
+
+              return /*#__PURE__*/ React.createElement(
+                'div',
+                {
+                  className: 'rbc-row-user-image',
+                },
+                _firstChar
+              )
+            }
+          } else {
+            return /*#__PURE__*/ React.createElement(React.Fragment, null)
+          }
+        },
+      },
+      {
         key: 'render',
         value: function render() {
           var _this$props = this.props,
@@ -43814,6 +43854,7 @@
               style: event.style || {},
               title: tooltip || undefined,
             },
+            this.renderUserImage(event.user),
             Event
               ? /*#__PURE__*/ React.createElement(Event, {
                   event: event,
@@ -43825,7 +43866,13 @@
                   slotStart: slotStart,
                   slotEnd: slotEnd,
                 })
-              : title
+              : /*#__PURE__*/ React.createElement(
+                  'div',
+                  {
+                    className: event.user ? 'rbc-row-text' : '',
+                  },
+                  title
+                )
           )
           return /*#__PURE__*/ React.createElement(
             EventWrapper,
@@ -49114,17 +49161,6 @@
     )
   }
 
-  DateHeader.propTypes =
-    'development' !== 'production'
-      ? {
-          label: propTypes$3.exports.node,
-          date: propTypes$3.exports.instanceOf(Date),
-          drilldownView: propTypes$3.exports.string,
-          onDrillDown: propTypes$3.exports.func,
-          isOffRange: propTypes$3.exports.bool,
-        }
-      : {}
-
   var _excluded$6 = ['date', 'className']
 
   var eventsForWeek = function eventsForWeek(
@@ -50865,16 +50901,6 @@
 
     return TimeSlotGroup
   })(react.exports.Component)
-  TimeSlotGroup.propTypes =
-    'development' !== 'production'
-      ? {
-          renderSlot: propTypes$3.exports.func,
-          group: propTypes$3.exports.array.isRequired,
-          resource: propTypes$3.exports.any,
-          components: propTypes$3.exports.object,
-          getters: propTypes$3.exports.object,
-        }
-      : {}
 
   function stringifyPercent(v) {
     return typeof v === 'string' ? v : v + '%'
@@ -52595,6 +52621,17 @@
     return Week
   })(React.Component)
 
+  Week.propTypes =
+    'development' !== 'production'
+      ? {
+          date: propTypes$3.exports.instanceOf(Date).isRequired,
+          localizer: propTypes$3.exports.any,
+          min: propTypes$3.exports.instanceOf(Date),
+          max: propTypes$3.exports.instanceOf(Date),
+          scrollToTime: propTypes$3.exports.instanceOf(Date),
+          enableAutoScroll: propTypes$3.exports.bool,
+        }
+      : {}
   Week.defaultProps = TimeGrid.defaultProps
 
   Week.navigate = function (date, action, _ref) {
